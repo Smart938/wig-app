@@ -4,221 +4,304 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <title>WigTry | Примерка париков</title>
+    <title>WigTry</title>
     <style>
-        /* Стильный современный дизайн */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background: #0a0a0a;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            color: #f0e6d3;
+            background: #0a0f1a;
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: #e8edf2;
             min-height: 100vh;
-            padding: 20px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding: 0 16px 20px;
         }
 
         .container { 
-            max-width: 400px; 
+            max-width: 420px; 
             width: 100%; 
         }
 
-        /* Заголовок */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
+        /* Hero-секция с фото */
+        .hero {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            border-radius: 28px;
+            overflow: hidden;
+            margin: 24px 0 28px;
+            background: #0d1225;
         }
         
-        .logo {
-            font-size: 42px;
-            margin-bottom: 8px;
-            display: block;
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.85;
         }
         
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            background: linear-gradient(135deg, #e8c284, #c9956b);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(10,15,26,0.95) 0%, transparent 100%);
+        }
+        
+        .hero-text {
+            position: absolute;
+            bottom: 24px;
+            left: 24px;
+        }
+        
+        .hero-text h1 {
+            font-size: 28px;
+            font-weight: 700;
             letter-spacing: -0.5px;
+            color: #ffffff;
         }
         
-        .subtitle {
-            color: #8a8070;
-            font-size: 14px;
-            margin-top: 6px;
-            font-style: italic;
-        }
-
-        /* Карточка выбора парика */
-        .section-title {
-            font-size: 14px;
+        .hero-text p {
+            font-size: 13px;
+            color: #7eb8c9;
+            font-weight: 400;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8a8070;
-            margin-bottom: 12px;
-            text-align: center;
+            margin-top: 4px;
         }
 
-        .wig-grid {
+        /* Секция выбора стиля */
+        .section-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #4a6070;
+            margin-bottom: 14px;
+            font-weight: 600;
+        }
+
+        .wig-scroll {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             overflow-x: auto;
-            padding: 4px 0 20px;
+            padding: 2px 0 24px;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
         }
 
         .wig-card {
-            min-width: 85px;
-            height: 100px;
-            background: #1a1a1a;
-            border-radius: 16px;
+            min-width: 82px;
+            height: 110px;
+            background: rgba(20, 28, 45, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            border: 1.5px solid #2a2a2a;
-            transition: all 0.2s;
+            gap: 10px;
+            border: 1px solid rgba(70, 100, 120, 0.3);
+            transition: all 0.25s;
             cursor: pointer;
             flex-shrink: 0;
         }
 
         .wig-card:active, .wig-card.active {
-            border-color: #e8c284;
-            background: #1e1a14;
-            transform: scale(0.96);
+            border-color: #2eccd0;
+            background: rgba(46, 204, 208, 0.08);
+            box-shadow: 0 0 20px rgba(46, 204, 208, 0.1);
+            transform: translateY(-2px);
         }
 
-        .wig-emoji { font-size: 30px; }
-        .wig-label { font-size: 12px; font-weight: 500; }
-
-        /* Зона фото */
-        .photo-area {
-            background: #111111;
-            border: 2px dashed #2a2a2a;
-            border-radius: 24px;
-            padding: 30px 20px;
-            text-align: center;
-            margin: 10px 0 20px;
-            cursor: pointer;
-            transition: 0.2s;
+        .wig-card img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
         }
-        .photo-area:active { border-color: #e8c284; background: #151515; }
         
-        .photo-icon {
-            font-size: 48px;
-            margin-bottom: 8px;
-            display: block;
+        .wig-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: #9aafc0;
+            letter-spacing: 0.3px;
         }
-        .photo-text { font-size: 16px; font-weight: 500; color: #ccc; }
-        .photo-hint { font-size: 13px; color: #666; margin-top: 4px; }
+
+        /* Зона загрузки */
+        .upload-area {
+            background: rgba(20, 28, 45, 0.5);
+            border: 1.5px dashed rgba(46, 204, 208, 0.25);
+            border-radius: 22px;
+            padding: 32px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 6px 0 20px;
+        }
+        .upload-area:active {
+            border-color: #2eccd0;
+            background: rgba(46, 204, 208, 0.05);
+        }
+        
+        .upload-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 12px;
+            border-radius: 50%;
+            background: rgba(46, 204, 208, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .upload-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: #2eccd0;
+        }
+        
+        .upload-title {
+            font-size: 15px;
+            font-weight: 500;
+            color: #d0dae5;
+        }
+        .upload-hint {
+            font-size: 12px;
+            color: #556877;
+            margin-top: 4px;
+        }
 
         /* Результат */
         #resultBlock {
             display: none;
-            margin-top: 20px;
+            margin-top: 16px;
             text-align: center;
+            animation: fadeIn 0.5s ease;
         }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
         #resultBlock img {
             width: 100%;
-            border-radius: 20px;
-            border: 2px solid #2a2a2a;
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.08);
             margin-bottom: 16px;
         }
+        
         .result-label {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 500;
-            margin-bottom: 12px;
-            color: #e8c284;
+            margin-bottom: 14px;
+            color: #b8d0db;
         }
 
-        /* Кнопка оплаты */
-        .btn-gold {
-            background: linear-gradient(135deg, #e8c284, #b8863c);
-            color: #0a0a0a;
-            border: none;
-            padding: 16px 32px;
-            font-size: 17px;
-            font-weight: 700;
+        /* Кнопка */
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3b45, #1a5060);
+            color: #e0f0f5;
+            border: 1px solid rgba(46, 204, 208, 0.3);
+            padding: 15px 30px;
+            font-size: 15px;
+            font-weight: 600;
             border-radius: 16px;
             width: 100%;
             cursor: pointer;
-            letter-spacing: -0.2px;
-            transition: 0.2s;
-            margin-top: 8px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            margin-top: 6px;
         }
-        .btn-gold:active { transform: scale(0.97); opacity: 0.9; }
+        .btn-primary:active {
+            background: #1a5060;
+            border-color: #2eccd0;
+            transform: scale(0.97);
+        }
+
+        /* Статус */
+        #statusText {
+            text-align: center;
+            color: #5e8a99;
+            font-size: 13px;
+            min-height: 20px;
+            margin: 8px 0;
+        }
 
         /* Подвал */
         .footer {
             margin-top: auto;
-            padding: 30px 0 10px;
-            font-size: 12px;
-            color: #444;
+            padding: 30px 0 12px;
+            font-size: 11px;
+            color: #2a3a48;
             text-align: center;
+            letter-spacing: 0.5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Шапка -->
-        <div class="header">
-            <span class="logo">✨</span>
-            <h1>WigTry</h1>
-            <p class="subtitle">виртуальная примерка париков</p>
-        </div>
-
-        <!-- Выбор парика -->
-        <p class="section-title">Выбери стиль</p>
-        <div class="wig-grid" id="wigGrid">
-            <div class="wig-card active" onclick="selectWig(this, 'Блонд')">
-                <span class="wig-emoji">👱‍♀️</span>
-                <span class="wig-label">Блонд</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Брюнет')">
-                <span class="wig-emoji">👩</span>
-                <span class="wig-label">Брюнет</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Рыжий')">
-                <span class="wig-emoji">🧑‍🦰</span>
-                <span class="wig-label">Рыжий</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Каре')">
-                <span class="wig-emoji">💇‍♀️</span>
-                <span class="wig-label">Каре</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Кудри')">
-                <span class="wig-emoji">👩‍🦱</span>
-                <span class="wig-label">Кудри</span>
+        <!-- Hero -->
+        <div class="hero">
+            <img class="hero-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8a04?w=600&h=400&fit=crop&crop=face" alt="Wig Try">
+            <div class="hero-overlay"></div>
+            <div class="hero-text">
+                <h1>WigTry</h1>
+                <p>Virtual fitting room</p>
             </div>
         </div>
 
-        <!-- Загрузка фото -->
+        <!-- Выбор стиля -->
+        <p class="section-label">Select style</p>
+        <div class="wig-scroll" id="wigGrid">
+            <div class="wig-card active" onclick="selectWig(this, 'Blonde')">
+                <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=100&h=100&fit=crop" alt="Blonde">
+                <span class="wig-label">Blonde</span>
+            </div>
+            <div class="wig-card" onclick="selectWig(this, 'Brunette')">
+                <img src="https://images.unsplash.com/photo-1541271696563-3be2f402496c?w=100&h=100&fit=crop" alt="Brunette">
+                <span class="wig-label">Brunette</span>
+            </div>
+            <div class="wig-card" onclick="selectWig(this, 'Red')">
+                <img src="https://images.unsplash.com/photo-1577774438656-27a3c3567f39?w=100&h=100&fit=crop" alt="Red">
+                <span class="wig-label">Auburn</span>
+            </div>
+            <div class="wig-card" onclick="selectWig(this, 'Bob')">
+                <img src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?w=100&h=100&fit=crop" alt="Bob">
+                <span class="wig-label">Bob</span>
+            </div>
+            <div class="wig-card" onclick="selectWig(this, 'Curly')">
+                <img src="https://images.unsplash.com/photo-1620336655052-0fd4fd6e0a19?w=100&h=100&fit=crop" alt="Curly">
+                <span class="wig-label">Curly</span>
+            </div>
+        </div>
+
+        <!-- Загрузка -->
         <input type="file" id="photoInput" accept="image/*" capture="user" style="display: none;">
-        <div class="photo-area" onclick="document.getElementById('photoInput').click()">
-            <span class="photo-icon">📸</span>
-            <p class="photo-text">Загрузить селфи</p>
-            <p class="photo-hint">нажми, чтобы выбрать фото</p>
+        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+            <div class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+            </div>
+            <p class="upload-title">Upload selfie</p>
+            <p class="upload-hint">Tap to select photo</p>
         </div>
-        <p id="statusText" style="text-align:center; color:#e8c284; font-size:14px; min-height:20px;"></p>
+        <p id="statusText"></p>
 
         <!-- Результат -->
         <div id="resultBlock">
-            <p class="result-label">✨ Твой новый образ</p>
-            <img id="resultImg" src="" alt="Результат примерки">
-            <!-- Заглушка: позже будет оплата -->
-            <button class="btn-gold" onclick="alert('Здесь будет оплата ⭐')">💫 Сохранить образ</button>
+            <p class="result-label">Your new look</p>
+            <img id="resultImg" src="" alt="Result">
+            <button class="btn-primary" onclick="alert('Payment coming soon')">Save Look</button>
         </div>
 
-        <div class="footer">
-            конфиденциально • фото не сохраняются
-        </div>
+        <div class="footer">Private & secure &middot; Photos are not stored</div>
     </div>
 
     <script>
@@ -226,17 +309,15 @@
         tg.expand();
         tg.ready();
 
-        let selectedWig = 'Блонд'; // по умолчанию
+        let selectedWig = 'Blonde';
 
-        // Выбор парика
         function selectWig(cardElement, wigName) {
             document.querySelectorAll('.wig-card').forEach(c => c.classList.remove('active'));
             cardElement.classList.add('active');
             selectedWig = wigName;
-            document.getElementById('statusText').innerText = 'Выбран стиль: ' + wigName;
+            document.getElementById('statusText').innerText = 'Style: ' + wigName;
         }
 
-        // Загрузка фото
         document.getElementById('photoInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -246,8 +327,7 @@
                 const img = document.getElementById('resultImg');
                 img.src = event.target.result;
                 document.getElementById('resultBlock').style.display = 'block';
-                document.getElementById('statusText').innerText = '🎉 Примерка готова! Стиль: ' + selectedWig;
-                // Прокрутка вниз, чтобы показать результат
+                document.getElementById('statusText').innerText = 'Ready! Style: ' + selectedWig;
                 document.getElementById('resultBlock').scrollIntoView({behavior: 'smooth'});
             };
             reader.readAsDataURL(file);
@@ -255,3 +335,5 @@
     </script>
 </body>
 </html>
+
+      
