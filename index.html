@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -11,9 +11,9 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background: #0a0f1a;
+            background: #0c1424;
             font-family: 'Inter', -apple-system, sans-serif;
-            color: #e8edf2;
+            color: #e0e6ef;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -21,287 +21,298 @@
             padding: 0 16px 20px;
         }
 
-        .container { 
-            max-width: 420px; 
-            width: 100%; 
-        }
+        .container { max-width: 420px; width: 100%; }
 
-        /* Hero-секция с фото */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 260px;
-            border-radius: 28px;
-            overflow: hidden;
-            margin: 24px 0 28px;
-            background: #0d1225;
-        }
+        .screen { display: none; }
+        .screen.active { display: block; animation: fadeIn 0.4s ease; }
         
-        .hero-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.85;
-        }
-        
-        .hero-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(10,15,26,0.95) 0%, transparent 100%);
-        }
-        
-        .hero-text {
-            position: absolute;
-            bottom: 24px;
-            left: 24px;
-        }
-        
-        .hero-text h1 {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-        }
-        
-        .hero-text p {
-            font-size: 13px;
-            color: #7eb8c9;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Секция выбора стиля */
-        .section-label {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #4a6070;
-            margin-bottom: 14px;
-            font-weight: 600;
-        }
-
-        .wig-scroll {
-            display: flex;
-            gap: 10px;
-            overflow-x: auto;
-            padding: 2px 0 24px;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .wig-card {
-            min-width: 82px;
-            height: 110px;
-            background: rgba(20, 28, 45, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border: 1px solid rgba(70, 100, 120, 0.3);
-            transition: all 0.25s;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        .wig-card:active, .wig-card.active {
-            border-color: #2eccd0;
-            background: rgba(46, 204, 208, 0.08);
-            box-shadow: 0 0 20px rgba(46, 204, 208, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .wig-card img {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255,255,255,0.1);
-        }
-        
-        .wig-label {
-            font-size: 12px;
-            font-weight: 500;
-            color: #9aafc0;
-            letter-spacing: 0.3px;
-        }
-
-        /* Зона загрузки */
-        .upload-area {
-            background: rgba(20, 28, 45, 0.5);
-            border: 1.5px dashed rgba(46, 204, 208, 0.25);
-            border-radius: 22px;
-            padding: 32px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin: 6px 0 20px;
-        }
-        .upload-area:active {
-            border-color: #2eccd0;
-            background: rgba(46, 204, 208, 0.05);
-        }
-        
-        .upload-icon {
-            width: 48px;
-            height: 48px;
-            margin: 0 auto 12px;
-            border-radius: 50%;
-            background: rgba(46, 204, 208, 0.12);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .upload-icon svg {
-            width: 22px;
-            height: 22px;
-            stroke: #2eccd0;
-        }
-        
-        .upload-title {
-            font-size: 15px;
-            font-weight: 500;
-            color: #d0dae5;
-        }
-        .upload-hint {
-            font-size: 12px;
-            color: #556877;
-            margin-top: 4px;
-        }
-
-        /* Результат */
-        #resultBlock {
-            display: none;
-            margin-top: 16px;
-            text-align: center;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        #resultBlock img {
-            width: 100%;
-            border-radius: 22px;
-            border: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 16px;
-        }
-        
-        .result-label {
-            font-size: 16px;
-            font-weight: 500;
-            margin-bottom: 14px;
-            color: #b8d0db;
-        }
-
-        /* Кнопка */
+        /* Общие элементы */
         .btn-primary {
-            background: linear-gradient(135deg, #1a3b45, #1a5060);
-            color: #e0f0f5;
-            border: 1px solid rgba(46, 204, 208, 0.3);
-            padding: 15px 30px;
-            font-size: 15px;
+            background: linear-gradient(135deg, #1e3550, #1a4058);
+            color: #e8eff5;
+            border: 1px solid rgba(180, 160, 120, 0.25);
+            padding: 16px 34px;
+            font-size: 16px;
             font-weight: 600;
             border-radius: 16px;
-            width: 100%;
             cursor: pointer;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-            margin-top: 6px;
+            letter-spacing: 0.3px;
+            transition: all 0.25s;
+            width: 100%;
+            max-width: 280px;
         }
-        .btn-primary:active {
-            background: #1a5060;
-            border-color: #2eccd0;
-            transform: scale(0.97);
+        .btn-primary:active { background: #1a4058; border-color: #c9b07d; transform: scale(0.96); }
+        
+        .btn-secondary {
+            background: transparent;
+            color: #7a8ea3;
+            border: 1px solid rgba(120, 140, 160, 0.3);
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
         }
+        .btn-secondary:active { background: rgba(255,255,255,0.04); border-color: #8aa0b8; }
 
-        /* Статус */
-        #statusText {
-            text-align: center;
-            color: #5e8a99;
-            font-size: 13px;
-            min-height: 20px;
-            margin: 8px 0;
-        }
+        .section-header { text-align: center; margin: 24px 0 8px; }
+        .section-title { font-size: 20px; font-weight: 600; color: #d5dde8; letter-spacing: -0.2px; }
+        .section-hint { font-size: 13px; color: #6b7d94; margin-top: 4px; }
 
-        /* Подвал */
+        .nav-buttons { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+
+        /* Экран 1: Миссия */
+        .mission-screen { text-align: center; padding-top: 60px; }
+        .mission-text { font-size: 18px; color: #c9ccd4; line-height: 1.8; font-style: italic; margin-bottom: 16px; padding: 0 8px; }
+        .mission-sub { font-size: 13px; color: #6b7d94; line-height: 1.6; margin-bottom: 36px; padding: 0 8px; }
+
+        /* Экран 2: Приветствие */
+        .welcome-screen { text-align: center; padding-top: 40px; }
+        .logo-mark {
+            width: 64px; height: 64px; border-radius: 20px;
+            background: linear-gradient(145deg, #1e3550, #15273d);
+            margin: 0 auto 28px; display: flex; align-items: center; justify-content: center;
+            font-size: 28px; font-weight: 700; color: #c9b07d; letter-spacing: -1px;
+        }
+        .welcome-title { font-size: 26px; font-weight: 600; color: #f0f3f8; letter-spacing: -0.3px; margin-bottom: 14px; line-height: 1.3; }
+        .welcome-sub { font-size: 15px; color: #8a9bb5; line-height: 1.6; margin-bottom: 8px; padding: 0 10px; }
+        .welcome-hint { font-size: 13px; color: #6b7d94; margin-bottom: 36px; }
+
+        /* Экран 3: Форма лица */
+        .shape-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+        .shape-card {
+            background: rgba(20, 30, 48, 0.6); border: 1px solid rgba(100, 120, 150, 0.2);
+            border-radius: 16px; padding: 16px 12px; text-align: center; cursor: pointer; transition: all 0.2s;
+        }
+        .shape-card:active, .shape-card.selected { border-color: #c9b07d; background: rgba(180, 160, 120, 0.08); }
+        .shape-icon {
+            width: 44px; height: 44px; margin: 0 auto 8px; border-radius: 50%;
+            background: rgba(200, 175, 125, 0.12); display: flex; align-items: center; justify-content: center; font-size: 18px;
+        }
+        .shape-label { font-size: 13px; font-weight: 500; color: #bcc6d4; }
+
+        /* Экран 4: Цвет */
+        .color-row { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 16px 0; }
+        .color-circle {
+            width: 56px; height: 56px; border-radius: 50%; cursor: pointer;
+            border: 2px solid transparent; transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+        }
+        .color-circle:active, .color-circle.selected { border-color: #c9b07d; transform: scale(1.08); box-shadow: 0 0 16px rgba(180, 160, 120, 0.25); }
+        .color-label { font-size: 11px; text-align: center; color: #8a9bb5; margin-top: 4px; }
+        .color-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+
+        /* Экран 5: Стиль */
+        .style-scroll { display: flex; gap: 12px; overflow-x: auto; padding: 8px 0 20px; -webkit-overflow-scrolling: touch; }
+        .style-card {
+            min-width: 90px; height: 100px; background: rgba(20, 30, 48, 0.6);
+            border: 1px solid rgba(100, 120, 150, 0.2); border-radius: 18px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 8px; cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+        }
+        .style-card:active, .style-card.selected { border-color: #c9b07d; background: rgba(180, 160, 120, 0.08); }
+        .style-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(200, 175, 125, 0.1); display: flex; align-items: center; justify-content: center; font-size: 16px;
+        }
+        .style-label { font-size: 12px; font-weight: 500; color: #bcc6d4; }
+
+        /* Экран 6: Фото */
+        .upload-area {
+            background: rgba(20, 30, 48, 0.5); border: 1.5px dashed rgba(180, 160, 120, 0.25);
+            border-radius: 22px; padding: 32px 20px; text-align: center; cursor: pointer; margin: 12px 0 20px; transition: all 0.3s;
+        }
+        .upload-area:active { border-color: #c9b07d; background: rgba(180, 160, 120, 0.04); }
+        .upload-icon-inner {
+            width: 48px; height: 48px; margin: 0 auto 12px; border-radius: 50%;
+            background: rgba(180, 160, 120, 0.1); display: flex; align-items: center; justify-content: center;
+        }
+        .upload-icon-inner svg { width: 22px; height: 22px; stroke: #c9b07d; }
+        .upload-title { font-size: 15px; font-weight: 500; color: #d0d8e4; }
+        .upload-hint { font-size: 12px; color: #6b7d94; margin-top: 4px; line-height: 1.5; }
+
+        /* Результат */
+        #resultBlock { display: none; margin-top: 16px; text-align: center; animation: fadeIn 0.5s ease; }
+        #resultBlock img { width: 100%; border-radius: 22px; border: 1px solid rgba(255,255,255,0.06); margin-bottom: 16px; }
+        .result-label { font-size: 16px; font-weight: 500; margin-bottom: 6px; color: #c9b07d; }
+
+        /* Экран 7: Подсказка */
+        .info-box {
+            background: rgba(20, 30, 48, 0.5); border: 1px solid rgba(180, 160, 120, 0.15);
+            border-radius: 16px; padding: 16px; margin: 16px 0; text-align: left;
+        }
+        .info-box h4 { font-size: 14px; font-weight: 600; color: #c9b07d; margin-bottom: 6px; }
+        .info-box p { font-size: 13px; color: #9aadc2; line-height: 1.5; }
+
+        /* Экран 8: Пакеты */
+        .package-card {
+            background: rgba(20, 30, 48, 0.6); border: 1px solid rgba(100, 120, 150, 0.2);
+            border-radius: 18px; padding: 20px; text-align: center; cursor: pointer; transition: all 0.2s; margin: 12px 0;
+        }
+        .package-card:active, .package-card.selected { border-color: #c9b07d; background: rgba(180, 160, 120, 0.08); }
+        .package-name { font-size: 18px; font-weight: 600; color: #e0e6ef; }
+        .package-price { font-size: 28px; font-weight: 700; color: #c9b07d; margin: 8px 0; }
+        .package-desc { font-size: 13px; color: #8a9bb5; }
+        .package-note { font-size: 12px; color: #6b7d94; margin-top: 16px; text-align: center; font-style: italic; }
+
+        /* Футер */
         .footer {
-            margin-top: auto;
-            padding: 30px 0 12px;
-            font-size: 11px;
-            color: #2a3a48;
-            text-align: center;
-            letter-spacing: 0.5px;
+            margin-top: auto; padding: 24px 0 12px; font-size: 11px;
+            color: #3a4d62; text-align: center; letter-spacing: 0.3px;
         }
+
+        #statusText { text-align: center; color: #8a9bb5; font-size: 13px; min-height: 20px; margin: 6px 0; }
+        #chosenInfo { text-align: center; color: #c9b07d; font-size: 13px; }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Hero -->
-        <div class="hero">
-            <img class="hero-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8a04?w=600&h=400&fit=crop&crop=face" alt="Wig Try">
-            <div class="hero-overlay"></div>
-            <div class="hero-text">
-                <h1>WigTry</h1>
-                <p>Virtual fitting room</p>
+
+        <!-- ЭКРАН 1: Миссия -->
+        <div class="screen active" id="screenMission">
+            <div class="mission-screen">
+                <div class="logo-mark">W</div>
+                <p class="mission-text">We know that hair loss can be tough.<br><br>We're here to help you find a style that makes you feel confident and beautiful.</p>
+                <p class="mission-sub">Designed for those seeking medical wigs that prioritize comfort and natural appearance.</p>
+                <button class="btn-primary" onclick="goTo('screenWelcome')">Start</button>
             </div>
         </div>
 
-        <!-- Выбор стиля -->
-        <p class="section-label">Select style</p>
-        <div class="wig-scroll" id="wigGrid">
-            <div class="wig-card active" onclick="selectWig(this, 'Blonde')">
-                <img src="https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=100&h=100&fit=crop" alt="Blonde">
-                <span class="wig-label">Blonde</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Brunette')">
-                <img src="https://images.unsplash.com/photo-1541271696563-3be2f402496c?w=100&h=100&fit=crop" alt="Brunette">
-                <span class="wig-label">Brunette</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Red')">
-                <img src="https://images.unsplash.com/photo-1577774438656-27a3c3567f39?w=100&h=100&fit=crop" alt="Red">
-                <span class="wig-label">Auburn</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Bob')">
-                <img src="https://images.unsplash.com/photo-1601412436009-d964bd02edbc?w=100&h=100&fit=crop" alt="Bob">
-                <span class="wig-label">Bob</span>
-            </div>
-            <div class="wig-card" onclick="selectWig(this, 'Curly')">
-                <img src="https://images.unsplash.com/photo-1620336655052-0fd4fd6e0a19?w=100&h=100&fit=crop" alt="Curly">
-                <span class="wig-label">Curly</span>
+        <!-- ЭКРАН 2: Приветствие -->
+        <div class="screen" id="screenWelcome">
+            <div class="welcome-screen">
+                <div class="logo-mark">W</div>
+                <h1 class="welcome-title">Find a wig that looks<br>and feels like you.</h1>
+                <p class="welcome-sub">For anyone experiencing hair loss.</p>
+                <p class="welcome-hint">Your personal fitting room for medical wigs.</p>
+                <button class="btn-primary" onclick="goTo('screenShape')">Find your look</button>
             </div>
         </div>
 
-        <!-- Загрузка -->
-        <input type="file" id="photoInput" accept="image/*" capture="user" style="display: none;">
-        <div class="upload-area" onclick="document.getElementById('photoInput').click()">
-            <div class="upload-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                    <polyline points="17 8 12 3 7 8"></polyline>
-                    <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
+        <!-- ЭКРАН 3: Форма лица -->
+        <div class="screen" id="screenShape">
+            <div class="section-header">
+                <p class="section-title">What is your face shape?</p>
+                <p class="section-hint">This helps us show you the most natural look</p>
             </div>
-            <p class="upload-title">Upload selfie</p>
-            <p class="upload-hint">Tap to select photo</p>
+            <div class="shape-grid" id="shapeGrid">
+                <div class="shape-card" onclick="selectShape(this, 'Oval')"><div class="shape-icon">○</div><span class="shape-label">Oval</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Round')"><div class="shape-icon">⬤</div><span class="shape-label">Round</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Square')"><div class="shape-icon">◻</div><span class="shape-label">Square</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Heart')"><div class="shape-icon">♡</div><span class="shape-label">Heart</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Diamond')"><div class="shape-icon">◇</div><span class="shape-label">Diamond</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Oblong')"><div class="shape-icon">▭</div><span class="shape-label">Oblong</span></div>
+                <div class="shape-card" onclick="selectShape(this, 'Triangle')"><div class="shape-icon">△</div><span class="shape-label">Triangle</span></div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goTo('screenColor')">Skip this step</button>
+                <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenColor')">Next</button>
+            </div>
         </div>
-        <p id="statusText"></p>
 
-        <!-- Результат -->
-        <div id="resultBlock">
-            <p class="result-label">Your new look</p>
-            <img id="resultImg" src="" alt="Result">
-            <button class="btn-primary" onclick="alert('Payment coming soon')">Save Look</button>
+        <!-- ЭКРАН 4: Цвет -->
+        <div class="screen" id="screenColor">
+            <div class="section-header">
+                <p class="section-title">Choose color</p>
+                <p class="section-hint">Natural shades</p>
+            </div>
+            <div class="color-row" id="colorGrid">
+                <div class="color-item" onclick="selectColor(this, 'Jet Black', '#1a1a1a')"><div class="color-circle" style="background:#1a1a1a;"></div><span class="color-label">Jet Black</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Darkest Brown', '#3b2314')"><div class="color-circle" style="background:#3b2314;"></div><span class="color-label">Dark Brown</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Chocolate Brown', '#5c3317')"><div class="color-circle" style="background:#5c3317;"></div><span class="color-label">Chocolate</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Auburn', '#8b3a1a')"><div class="color-circle" style="background:#8b3a1a;"></div><span class="color-label">Auburn</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Honey Blonde', '#c9a66b')"><div class="color-circle" style="background:#c9a66b;"></div><span class="color-label">Honey Blonde</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Ash Brown', '#6b5e53')"><div class="color-circle" style="background:#6b5e53;"></div><span class="color-label">Ash Brown</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Platinum Blonde', '#e8e0d5')"><div class="color-circle" style="background:#e8e0d5;"></div><span class="color-label">Platinum</span></div>
+                <div class="color-item" onclick="selectColor(this, 'Burgundy', '#5c1a2a')"><div class="color-circle" style="background:#5c1a2a;"></div><span class="color-label">Burgundy</span></div>
+            </div>
+            <p id="selectedColorText" style="text-align:center; color:#c9b07d; font-size:13px;"></p>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goTo('screenShape')">Back</button>
+                <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenStyle')">Next</button>
+            </div>
         </div>
 
-        <div class="footer">Private & secure &middot; Photos are not stored</div>
+        <!-- ЭКРАН 5: Стиль -->
+        <div class="screen" id="screenStyle">
+            <div class="section-header"><p class="section-title">Choose style</p></div>
+            <div class="style-scroll" id="styleGrid">
+                <div class="style-card" onclick="selectStyle(this, 'Pixie')"><div class="style-icon">✂</div><span class="style-label">Pixie</span></div>
+                <div class="style-card" onclick="selectStyle(this, 'Bob')"><div class="style-icon">◐</div><span class="style-label">Bob</span></div>
+                <div class="style-card" onclick="selectStyle(this, 'Long Layers')"><div class="style-icon">▎</div><span class="style-label">Long Layers</span></div>
+                <div class="style-card" onclick="selectStyle(this, 'Curly')"><div class="style-icon">≈</div><span class="style-label">Curly</span></div>
+                <div class="style-card" onclick="selectStyle(this, 'Side Part')"><div class="style-icon">◧</div><span class="style-label">Side Part</span></div>
+                <div class="style-card" onclick="selectStyle(this, 'Soft Waves')"><div class="style-icon">∿</div><span class="style-label">Soft Waves</span></div>
+            </div>
+            <p id="selectedStyleText" style="text-align:center; color:#c9b07d; font-size:13px;"></p>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goTo('screenColor')">Back</button>
+                <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenPhoto')">Next</button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 6: Фото + Результат -->
+        <div class="screen" id="screenPhoto">
+            <div class="section-header">
+                <p class="section-title">Your new look</p>
+                <p id="chosenInfo"></p>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" capture="user" style="display: none;">
+            <div class="upload-area" onclick="document.getElementById('photoInput').click()">
+                <div class="upload-icon-inner">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <p class="upload-title">Upload selfie</p>
+                <p class="upload-hint">Take a selfie in natural light.<br>We'll help you visualize how a medical wig would look on you.</p>
+            </div>
+            <div id="resultBlock">
+                <p class="result-label">Your new look</p>
+                <img id="resultImg" src="" alt="Result">
+                <button class="btn-primary" onclick="goTo('screenTip')" style="margin-top:8px;">Continue</button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 7: Подсказка по поиску -->
+        <div class="screen" id="screenTip">
+            <div class="section-header"><p class="section-title">How to find this wig</p></div>
+            <div class="info-box">
+                <h4>Good to know</h4>
+                <p>Wig colors are named differently in every catalog. Don't worry! Just show this image to your consultant. They'll understand exactly what you're looking for.</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goTo('screenPhoto')">Back</button>
+                <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenPricing')">Next</button>
+            </div>
+        </div>
+
+        <!-- ЭКРАН 8: Пакеты -->
+        <div class="screen" id="screenPricing">
+            <div class="section-header"><p class="section-title">Try more looks</p></div>
+            <p class="package-note">Your first try-on is free. If you'd like to explore more styles, choose a package that fits your needs.</p>
+            <div class="package-card" onclick="alert('Payment: 99 Stars')">
+                <p class="package-name">3 try-ons</p>
+                <p class="package-price">99 ⭐</p>
+                <p class="package-desc">~4 BYN</p>
+            </div>
+            <div class="package-card" onclick="alert('Payment: 249 Stars')">
+                <p class="package-name">10 try-ons</p>
+                <p class="package-price">249 ⭐</p>
+                <p class="package-desc">~10 BYN</p>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goTo('screenTip')">Back</button>
+            </div>
+        </div>
+
+        <!-- ФУТЕР -->
+        <div class="footer">Designed for medical wig shopping. Made with care.</div>
     </div>
 
     <script>
@@ -309,25 +320,45 @@
         tg.expand();
         tg.ready();
 
-        let selectedWig = 'Blonde';
+        let selectedColor = null;
+        let selectedStyle = null;
 
-        function selectWig(cardElement, wigName) {
-            document.querySelectorAll('.wig-card').forEach(c => c.classList.remove('active'));
-            cardElement.classList.add('active');
-            selectedWig = wigName;
-            document.getElementById('statusText').innerText = 'Style: ' + wigName;
+        function goTo(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            if (screenId === 'screenPhoto') {
+                document.getElementById('chosenInfo').innerText = 
+                    (selectedColor ? selectedColor : '') + (selectedStyle ? ' + ' + selectedStyle : '');
+            }
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function selectShape(el, shape) {
+            document.querySelectorAll('#shapeGrid .shape-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function selectColor(el, color) {
+            document.querySelectorAll('#colorGrid .color-circle').forEach(c => c.classList.remove('selected'));
+            el.querySelector('.color-circle').classList.add('selected');
+            selectedColor = color;
+            document.getElementById('selectedColorText').innerText = 'Selected: ' + color;
+        }
+
+        function selectStyle(el, style) {
+            document.querySelectorAll('#styleGrid .style-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedStyle = style;
+            document.getElementById('selectedStyleText').innerText = 'Selected: ' + style;
         }
 
         document.getElementById('photoInput').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(event) {
-                const img = document.getElementById('resultImg');
-                img.src = event.target.result;
+                document.getElementById('resultImg').src = event.target.result;
                 document.getElementById('resultBlock').style.display = 'block';
-                document.getElementById('statusText').innerText = 'Ready! Style: ' + selectedWig;
                 document.getElementById('resultBlock').scrollIntoView({behavior: 'smooth'});
             };
             reader.readAsDataURL(file);
@@ -335,5 +366,4 @@
     </script>
 </body>
 </html>
-
       
