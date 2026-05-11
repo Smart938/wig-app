@@ -96,18 +96,16 @@
         }
         .wig-swatch.selected { border-color: #c9b07d; transform: scale(1.08); box-shadow: 0 0 16px rgba(180, 160, 120, 0.25); }
         .color-label { font-size: 11px; color: #8a9bb5; text-align: center; }
-
         .style-scroll { display: flex; gap: 14px; overflow-x: auto; padding: 8px 0 20px; -webkit-overflow-scrolling: touch; }
         .style-card {
-            min-width: 85px; height: 110px; background: rgba(20, 30, 48, 0.6);
+            min-width: 110px; height: 70px; background: rgba(20, 30, 48, 0.6);
             border: 1px solid rgba(100, 120, 150, 0.2); border-radius: 18px;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 8px; cursor: pointer; transition: all 0.2s; flex-shrink: 0;
+            gap: 0; cursor: pointer; transition: all 0.2s; flex-shrink: 0; padding: 0 12px;
         }
         .style-card:active, .style-card.selected { border-color: #c9b07d; background: rgba(180, 160, 120, 0.08); }
-        .style-icon { width: 60px; height: 70px; display: flex; align-items: center; justify-content: center; }
-        .style-label { font-size: 12px; font-weight: 500; color: #bcc6d4; }
-
+        .style-icon { display: none; }
+        .style-label { font-size: 16px; font-weight: 600; color: #d5dde8; letter-spacing: 0.5px; text-align: center; }
         .upload-area {
             background: rgba(20, 30, 48, 0.5); border: 1.5px dashed rgba(180, 160, 120, 0.25);
             border-radius: 22px; padding: 32px 20px; text-align: center; cursor: pointer; margin: 12px 0 20px; transition: all 0.3s;
@@ -211,18 +209,28 @@
                 <button class="btn-secondary" onclick="goTo('screenShape')">Back</button>
                 <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenStyle')">Next</button>
             </div>
-        </div>
-
-        <!-- ЭКРАН 5: Стиль -->
+        </div>        <!-- ЭКРАН 5: Стиль -->
         <div class="screen" id="screenStyle">
             <div class="section-header"><p class="section-title">Choose style</p></div>
             <div class="style-scroll" id="styleGrid">
-                <div class="style-card" onclick="selectStyle(this,'Pixie')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M22 38 Q20 18 40 15 Q60 18 58 38 Q54 32 40 30 Q26 32 22 38Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><path d="M18 43 Q15 45 18 49" fill="none" stroke="#c9b07d" stroke-width="1.5"/><path d="M62 43 Q65 45 62 49" fill="none" stroke="#c9b07d" stroke-width="1.5"/></svg></div><span class="style-label">Pixie</span></div>
-                <div class="style-card" onclick="selectStyle(this,'Bob')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M22 36 Q20 18 40 15 Q60 18 58 36 L58 62 Q58 66 54 66 L26 66 Q22 66 22 62Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><line x1="40" y1="15" x2="40" y2="62" stroke="#c9b07d" stroke-width="1" opacity="0.5"/></svg></div><span class="style-label">Bob</span></div>
-                <div class="style-card" onclick="selectStyle(this,'Long Layers')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M22 36 Q20 18 40 15 Q60 18 58 36 Q60 50 56 62 Q52 78 40 82 Q28 78 24 62 Q20 50 22 36Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><path d="M30 55 Q35 50 40 55 Q45 50 50 55" fill="none" stroke="#c9b07d" stroke-width="1.5"/><path d="M28 65 Q35 58 40 65 Q45 58 52 65" fill="none" stroke="#c9b07d" stroke-width="1.5"/></svg></div><span class="style-label">Long Layers</span></div>
-                <div class="style-card" onclick="selectStyle(this,'Curly')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M20 36 Q16 20 40 16 Q64 20 60 36 Q62 50 58 62 Q54 76 40 80 Q26 76 22 62 Q18 50 20 36Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><circle cx="28" cy="40" r="6" fill="none" stroke="#c9b07d" stroke-width="1.5"/><circle cx="52" cy="40" r="6" fill="none" stroke="#c9b07d" stroke-width="1.5"/><circle cx="40" cy="55" r="6" fill="none" stroke="#c9b07d" stroke-width="1.5"/></svg></div><span class="style-label">Curly</span></div>
-                <div class="style-card" onclick="selectStyle(this,'Side Part')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M28 18 L28 62 Q28 66 32 66 L56 66 Q60 66 60 62 Q62 50 58 36 Q60 18 40 15 Q32 16 28 18Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><path d="M30 46 Q36 42 42 44" fill="none" stroke="#c9b07d" stroke-width="1.5"/></svg></div><span class="style-label">Side Part</span></div>
-                <div class="style-card" onclick="selectStyle(this,'Soft Waves')"><div class="style-icon"><svg width="60" height="70" viewBox="0 0 80 100"><ellipse cx="40" cy="45" rx="20" ry="24" fill="none" stroke="#c9b07d" stroke-width="2"/><path d="M22 36 Q20 18 40 15 Q60 18 58 36 Q60 50 56 62 Q52 78 40 82 Q28 78 24 62 Q20 50 22 36Z" fill="none" stroke="#c9b07d" stroke-width="2.5"/><path d="M26 52 Q33 46 40 52 Q47 46 54 52" fill="none" stroke="#c9b07d" stroke-width="1.8"/><path d="M26 62 Q33 56 40 62 Q47 56 54 62" fill="none" stroke="#c9b07d" stroke-width="1.8"/><path d="M28 70 Q34 65 40 70 Q46 65 52 70" fill="none" stroke="#c9b07d" stroke-width="1.8"/></svg></div><span class="style-label">Soft Waves</span></div>
+                <div class="style-card" onclick="selectStyle(this,'Pixie')">
+                    <span class="style-label">Pixie</span>
+                </div>
+                <div class="style-card" onclick="selectStyle(this,'Bob')">
+                    <span class="style-label">Bob</span>
+                </div>
+                <div class="style-card" onclick="selectStyle(this,'Long Layers')">
+                    <span class="style-label">Long Layers</span>
+                </div>
+                <div class="style-card" onclick="selectStyle(this,'Curly')">
+                    <span class="style-label">Curly</span>
+                </div>
+                <div class="style-card" onclick="selectStyle(this,'Side Part')">
+                    <span class="style-label">Side Part</span>
+                </div>
+                <div class="style-card" onclick="selectStyle(this,'Soft Waves')">
+                    <span class="style-label">Soft Waves</span>
+                </div>
             </div>
             <p id="selectedStyleText" style="text-align:center;color:#c9b07d;font-size:13px;"></p>
             <div class="nav-buttons">
@@ -230,6 +238,7 @@
                 <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenPhoto')">Next</button>
             </div>
         </div>
+
 
         <!-- ЭКРАН 6: Фото -->
         <div class="screen" id="screenPhoto">
