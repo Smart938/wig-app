@@ -238,24 +238,36 @@
                 <button class="btn-primary" style="max-width:160px;" onclick="goTo('screenPhoto')">Next</button>
             </div>
         </div>
-
-
         <!-- ЭКРАН 6: Фото -->
         <div class="screen" id="screenPhoto">
-            <div class="section-header"><p class="section-title">Your new look</p><p id="chosenInfo"></p></div>
-            <input type="file" id="photoInput" accept="image/*" capture="user" style="display:none;">
+            <div class="section-header">
+                <p class="section-title">Your new look</p>
+                <p id="chosenInfo"></p>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" capture="user" style="display: none;">
             <div class="upload-area" onclick="document.getElementById('photoInput').click()">
-                <div class="upload-icon-inner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
+                <div class="upload-icon-inner">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
                 <p class="upload-title">Upload selfie</p>
                 <p class="upload-hint">Take a selfie in natural light.<br>We'll help you visualize how a medical wig would look on you.</p>
             </div>
-            <div id="resultBlock">
+            <div id="resultBlock" style="display:none; margin-top:16px; text-align:center;">
                 <p class="result-label">Your new look</p>
-                <img id="resultImg" src="" alt="Result">
-                <button class="btn-primary" onclick="goTo('screenTip')" style="margin-top:8px;">Continue</button>
+                <img id="resultImg" src="" alt="Result" style="width:100%; border-radius:22px; border:1px solid rgba(255,255,255,0.06); margin-bottom:16px;">
+                <p id="resultStatus" style="color:#8a9bb5; font-size:13px; margin-bottom:12px;"></p>
+                <button class="btn-primary" onclick="sendToBot()" style="margin-top:8px;">Try this look</button>
+                <button class="btn-secondary" onclick="goTo('screenTip')" style="margin-top:8px;">How to find this wig</button>
             </div>
+            <p id="statusText" style="text-align:center; color:#c9b07d; font-size:13px; min-height:20px; margin:6px 0;"></p>
         </div>
 
+     
+             
         <!-- ЭКРАН 7: Подсказка -->
         <div class="screen" id="screenTip">
             <div class="section-header"><p class="section-title">How to find this wig</p></div>
