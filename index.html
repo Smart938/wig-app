@@ -345,7 +345,42 @@
                 document.getElementById('resultBlock').scrollIntoView({behavior: 'smooth'});
             };
             reader.readAsDataURL(file);
-        });
+        });        // Отправка фото боту
+        async function sendToBot() {
+            const img = document.getElementById('resultImg');
+            if (!img.src || img.src === '') {
+                alert('Сначала загрузите фото');
+                return;
+            }
+
+            document.getElementById('resultStatus').innerText = 'Generating your look... Please wait ~20 seconds';
+            
+            // Конвертируем фото в base64
+            const response = await fetch(img.src);
+            const blob = await response.blob();
+            
+            // Создаём форму для отправки
+            const formData = new FormData();
+            formData.append('photo', blob, 'selfie.jpg');
+            formData.append('color', selectedColor || 'Blonde');
+            formData.append('style', selectedStyle || 'Long Layers');
+            
+            try {
+                // Отправляем боту (пока заглушка, завтра заменим на реальный URL)
+                const result = await fetch('https://wigtry-bot.onrender.com/tryon', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const data = await result.json();
+                if (data.result_url) {
+                    document.getElementById('resultImg').src = data.result_url;
+                    document.getElementById('resultStatus').innerText = 'Done! Here is your new look';
+                }
+            } catch (error) {
+                document.getElementById('resultStatus').innerText = 'Error. Please try again.';
+            }
+        }
     </script>
 </body>
 </html>
