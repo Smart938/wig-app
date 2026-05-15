@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Токены
-TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8721292715:AAGUHaSwM2Q1-VbgPHhO1Jh_WTu2jbTA-Q8")
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN", "8721292715:AAHxdwQCbbv5q0SJiUgib7Ql7tSr4D9SruA")
 REPLICATE_API_TOKEN = os.environ.get("REPLICATE_API_TOKEN", "r8_Htw4fiuk7x71wvT3IRLd4gGhb7vJrXr4Y4156")
 MODEL_NAME = "tencentarc/photomaker:ddfc2b08d209f9fa8c1eca692712918bd449f695dabb4a958da31802a9570fe4"
 
